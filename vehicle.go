@@ -1,12 +1,14 @@
 package main
 
-import {
+import (
 	"encoding/json"
 	"io/ioutil" 
 	"log"
 	"os"
 	"string"
-}
+)
+	
+
 type vehicle interface {
 }
 type car struct {
