@@ -5,7 +5,7 @@ import {
 	"io/ioutil" 
 	"log"
 	"os"
-	"strings"
+	"string"
 }
 type vehicle interface {
 }
