@@ -108,7 +108,7 @@ func generateRating() {
 		var vehResult feedbackResult
 		var vehRating rating
 
-		for _, msg := ranfge v.Feedback {
+		for _, msg := range v.Feedback {
 			if len(text)>=5 {
 				text := strings.Split(msg, " ")
 				vehRating := 5.0
