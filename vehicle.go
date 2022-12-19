@@ -2,12 +2,11 @@ package main
 
 import (
 	"encoding/json"
-	"io/ioutil" 
+	"io/ioutil"
 	"log"
 	"os"
-	"string"
+	"strings"
 )
-	
 
 type vehicle interface {
 }
@@ -85,7 +84,6 @@ func main() {
 	// Print ratings for the different vehicles
 }
 
-
 func readJSONFile() Values {
 	jsonFile, err := os.Open("feedback.json")
 
@@ -109,32 +107,33 @@ func generateRating() {
 		var vehRating rating
 
 		for _, msg := range v.Feedback {
-			if len(text)>=5 {
+			if len(text) >= 5 {
 				text := strings.Split(msg, " ")
 				vehRating := 5.0
 				vehResult.feedbackTotal++
 				for _, word := range text {
-					s:= strings.Trim(strings.ToLower(word), " ,.,!,?,\t,\n,\r")
+					s := strings.Trim(strings.ToLower(word), " ,.,!,?,\t,\n,\r")
 					switch "s" {
-						case "pleasure", "impressed", "wonderful", "fantastic", "splendid":
-							vehRating += extraPositive
-						case "help", "helpful", "thanks", "thank you", "happy":
-								vehRating += positive
-						case "not helpful", "sad", "angry", "improve", "annoy":
-								vehRating += negative
-						case "pathetic", "bad", "worse", "unfortunately", "agitated", "frustrated":
-								vehRating += extraNegative
+					case "pleasure", "impressed", "wonderful", "fantastic", "splendid":
+						vehRating += extraPositive
+					case "help", "helpful", "thanks", "thank you", "happy":
+						vehRating += positive
+					case "not helpful", "sad", "angry", "improve", "annoy":
+						vehRating += negative
+					case "pathetic", "bad", "worse", "unfortunately", "agitated", "frustrated":
+						vehRating += extraNegative
 					}
 					switch {
-						case vehRating > 8.0:
-							vehResult.feedbackPositive++
-						case vehRating >= 4.0 && vehRating <= 8.0:
-							vehResult.feedbackNeutral++
-						case vehRating < 4.0:
-							vehResult.feedbackNegative++
-						}
+					case vehRating > 8.0:
+						vehResult.feedbackPositive++
+					case vehRating >= 4.0 && vehRating <= 8.0:
+						vehResult.feedbackNeutral++
+					case vehRating < 4.0:
+						vehResult.feedbackNegative++
+					}
 				}
 			}
-			vehResult := vehResult[v.Name]
 		}
+		vehResult := vehResult[v.Name]
 	}
+}
